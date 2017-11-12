@@ -46,7 +46,7 @@ To use the bot then you need to:
 * [Keras](https://keras.io/) - High Level Neural Network library
 * [Tensorflow](https://www.tensorflow.org/) - Numerical computing library
 * [paser code article](https://dscience.co.uk/whatsapp-ening-text-analytics-with-a-whatsapp-message-log/) - Although the article didn't have the full code, the parser was basically copied from there
-* [char-rnn implementation in Keras](https://github.com/mineshmathew/char_rnn_karpathy_keras)
+* [char-rnn implementation in Keras](https://github.com/mineshmathew/char_rnn_karpathy_keras) - I totally copy/paste this implementation. The predict code in the bot itself also comes from this source
 
 
 ## To Do
