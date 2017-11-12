@@ -36,8 +36,8 @@ To use the bot then you need to:
 1. Once the processing is finished you will have 1 or more of Karpathy_LSTM_weights_??.h5 where ?? is the iteration used to create the model weights. Edit the `model.load_weights` in the notebook "Bot" to change to the version you want to use
 1. Add the bot app to the discord. I followed the instructions in this [video](https://www.youtube.com/watch?v=u6tBvQSXJ7I)
 1. Execute the "Bot" notebook
-  * In the `charrnn` function the outermost `for` loop defines how many characters will be created at each invocation. Adjust it properly so it doesn't take too long to the bot to answer
-  * replace the _TOKEN_ in `client.run` with tho eone you generated in the previous step
+   * In the `charrnn` function the outermost `for` loop defines how many characters will be created at each invocation. Adjust it properly so it doesn't take too long to the bot to answer
+   * replace the _TOKEN_ in `client.run` with tho eone you generated in the previous step
 1. Test the bot in your channel. To talk to the bot just write something start with ! the bot will use the corpus to predict the response.
 
 ## Built With
