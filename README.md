@@ -42,7 +42,7 @@ To use the bot then you need to:
 
 ## Built With
 
-* [discord.py](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [discord.py](https://github.com/Rapptz/discord.py) - The Python Discord Bot API
 * [Keras](https://keras.io/) - High Level Neural Network library
 * [Tensorflow](https://www.tensorflow.org/) - Numerical computing library
 * [paser code article](https://dscience.co.uk/whatsapp-ening-text-analytics-with-a-whatsapp-message-log/) - Although the article didn't have the full code, the parser was basically copied from there
