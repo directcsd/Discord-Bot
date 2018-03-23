@@ -1,6 +1,7 @@
+
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 ####
@@ -20,15 +21,16 @@ import random
 import sys
 
 
-# In[2]:
+# In[ ]:
 
 
-path = get_file('nietzsche.txt', origin='https://s3.amazonaws.com/text-datasets/nietzsche.txt')
-text = open(path, encoding='utf8').read().lower()
+#path = get_file('nietzsche.txt', origin='https://s3.amazonaws.com/text-datasets/nietzsche.txt')
+#text = open(path, encoding='utf8').read().lower()
+text = open('processed corpus.txt', encoding='utf8').read().lower()
 print('corpus length:', len(text))
 
 
-# In[3]:
+# In[ ]:
 
 
 chars = sorted(list(set(text)))
@@ -37,7 +39,7 @@ char_indices = dict((c, i) for i, c in enumerate(chars))
 indices_char = dict((i, c) for i, c in enumerate(chars))
 
 
-# In[4]:
+# In[ ]:
 
 
 # split the corpus into sequences of length=maxlen
@@ -57,7 +59,7 @@ for i in range(0, len(text) - maxlen+1, step):
 print('nb sequences:', len(sentences))
 
 
-# In[5]:
+# In[ ]:
 
 
 print('Vectorization...')
@@ -70,11 +72,11 @@ for i, sentence in enumerate(sentences):
 for i, sentence in enumerate(next_chars):
     for t, char in enumerate(sentence):
         y[i, t, char_indices[char]] = 1
-
+    
 print ('vetorization completed')
 
 
-# In[6]:
+# In[ ]:
 
 
 # build the model: 2 stacked LSTM
@@ -94,13 +96,13 @@ print ('model is made')
 # train the model, output generated text after each iteration
 
 
-# In[7]:
+# In[ ]:
 
 
 print (model.summary())
 
 
-# In[8]:
+# In[ ]:
 
 
 for iteration in range(1, 61):
@@ -109,7 +111,7 @@ for iteration in range(1, 61):
     print('Iteration', iteration)
     history=model.fit(X, y, batch_size=128, epochs=1,verbose=2)
     sleep(0.1) # https://github.com/fchollet/keras/issues/2110
-
+    
     # saving models at the following iterations -- uncomment it if you want tos save weights and load it later
     if iteration==1 or iteration==3 or iteration==5 or iteration==10 or iteration==20 or iteration==30 or iteration==50 or iteration==60 :
         model.save_weights('Karpathy_LSTM_weights_'+str(iteration)+'.h5', overwrite=True)
@@ -119,16 +121,16 @@ for iteration in range(1, 61):
     print ('loss is')
     print (history.history['loss'][0])
     #print (history)
-    print()
+    print()    
 
-
+    
 
 
 # #### testing
 # now you use the trained model to generat text.
 # the  output shown in this notebook is for a model which is trained only for 1 iteration
 
-# In[9]:
+# In[ ]:
 
 
 seed_string="brutus:"
@@ -143,19 +145,21 @@ for i in range(320):
     preds = model.predict(x, verbose=0)[0]
     #print (np.argmax(preds[7]))
     next_index=np.argmax(preds[len(seed_string)-1])
-
-
+    
+    
     #next_index=np.argmax(preds[len(seed_string)-11])
     #print (preds.shape)
     #print (preds)
     #next_index = sample(preds, 1) #diversity is 1
     next_char = indices_char[next_index]
     seed_string = seed_string + next_char
-
+    
     #print (seed_string)
     #print ('##############')
     #if i==40:
     #    print ('####')
     sys.stdout.write(next_char)
 
-sys.stdout.flush()
+sys.stdout.flush()    
+
+

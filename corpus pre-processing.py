@@ -1,3 +1,4 @@
+
 # coding: utf-8
 
 # In[1]:
@@ -14,16 +15,16 @@ import matplotlib.pyplot as plt
 
 
 class wp_chat():
-
+    
     def __init__ (self, filename):
         self.filename = filename
-
+        
     def open_file(self):
         x = open(self.filename,'r', encoding='utf8')
         y = x.read()
         content = y.splitlines()
         return content
-
+        
     def clean_unicode(self,str):
         patterns = {
             "uni1":r'\\u20[0-9][a-z]',
@@ -34,50 +35,39 @@ class wp_chat():
         for key in patterns:
             raw_str = re.sub(patterns[key],"",raw_str)
         return raw_str
-
+        
     def ismessage(self,str):
         patterns = {
-            "hor1":r'w{3}s{1}[0-9]{1,2},s{1}d{4},s{1}d{2}:d{2}',
-            "hor2":r'w{3}s{1}[0-9]{1,2},s{1}d{2}:d{2}',
-            "imp2":r'd{1,2}sw{3}sd{2}:d{2}',
-            "imp1":r'd{1,2}sw{3}sd{4}sd{2}:d{2}',
-            "datetime":r'\d+\/\d+\/\d+\,\s(\d\d:){3}'
+            "del1":r'\] ?',
+            "del2":r'( cre| add| cha| rem| lef| del|: )?'
         }
-        for key in patterns:
-            result = re.search(patterns[key], str)
-            if result and str.count(':') >=2:
-                name_start = str.find(":")+7
-                first_colon = str.find(":")
-                name_end = str.find(":", first_colon+7)
-                name=str[name_start:name_end]
-                message=str[name_end+1:]
-                return [name, message, result.group()]
-        return ["","",str]
-
+        result = re.split("( cre| add| cha| rem| lef| del|: )?", str, 1)
+        message = result[2]
+        str_temp = result[0]
+        result = re.split("\] ?", str_temp, 1)
+        date = result[0]
+        name = result[1]
+        return [name, message, date]
+            
     def process(self,content):
-        j = 1
+        j=0
         df = pd.DataFrame(index = range(1, len(content)+1), columns=[ 'Name', 'Message', 'date_string'])
         for i in content:
             results = self.ismessage(i)
-            if results[0] != "":
-                df.ix[j]=results
-            else:
-                df.ix[j]['Name']=df.ix[j-1]['Name']
-                df.ix[j]['date_string']=df.ix[j-1]['date_string']
-                df.ix[j]['Message']=results[2]
-            j = j+1
-        #df['Time'] = df['date_string'].map(lambda x: dateutil.parser.parse(x))
-        #df['Day'] = df['date_string'].map(lambda x: dateutil.parser.parse(x).strftime("%a"))
-        #df['Date'] = df['date_string'].map(lambda x:dateutil.parser.parse(x).strftime("%x"))
-        #df['Hour'] = df['date_string'].map(lambda x:dateutil.parser.parse(x).strftime("%H"))
+            df.iloc[j]['Name']=results[0]
+            df.iloc[j]['Message']=results[1]
+            df.iloc[j]['date_string']=results[2]
+            #print (results[0])
+            
+            j=j+1    
         return df
-
+     
     def cleaning(self,content):
         clean_content=[]
         for i in content:
             clean_content.append(self.clean_unicode(i))
         return clean_content
-
+            
 
 
 # In[3]:
