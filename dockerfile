@@ -1,10 +1,10 @@
 FROM python:3
 
 ADD requirements.txt /app/requirements.txt
-RUN pip install -r /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Only use Jupyter for debugging with the ipnby files (can comment otherwise)
-RUN pip install jupyter
+RUN pip install --no-cache-dir jupyter
 ADD jupyter_notebook_config.json /root/.jupyter/jupyter_notebook_config.json
 
 ADD . /app
