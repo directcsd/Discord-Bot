@@ -1,0 +1,7 @@
+python_dateutil==2.7.0
+discord==0.0.2
+keras==2.1.5
+matplotlib==2.2.2
+numpy==1.14.2
+pandas==0.22.0
+tensorflow==1.7.0rc1
