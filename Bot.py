@@ -34,8 +34,9 @@ import asyncio
 # In[ ]:
 
 
-path = get_file('nietzsche.txt', origin='https://s3.amazonaws.com/text-datasets/nietzsche.txt')
-text = open(path).read().lower()
+#path = get_file('nietzsche.txt', origin='https://s3.amazonaws.com/text-datasets/nietzsche.txt')
+#text = open(path).read().lower()
+text = open('processed corpus.txt', encoding='utf8').read().lower()
 print('corpus length:', len(text))
 
 
@@ -94,15 +95,15 @@ async def charrnn(seed_string, response):
         preds = model.predict(x, verbose=0)[0]
         #print (np.argmax(preds[7]))
         next_index=np.argmax(preds[len(seed_string)-1])
-
-
+        
+        
         #next_index=np.argmax(preds[len(seed_string)-11])
         #print (preds.shape)
         #print (preds)
         #next_index = sample(preds, 1) #diversity is 1
         next_char = indices_char[next_index]
         seed_string = seed_string + next_char
-
+        
         #print (seed_string)
         #print ('##############')
         #if i==40:
@@ -135,14 +136,14 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-
+    
     if message.content.startswith('!ping'):
         await client.send_message(message.channel, ':ping_pong: Pong!')
-
+    
     elif message.content.startswith('!remindme'):
         await asyncio.sleep(10)
         await client.send_message(message.channel, (message.content[10:]))
-
+    
     elif message.content.startswith('!count'):
         counter = 0
         tmp = await client.send_message(message.channel, 'Calculating messages...')
@@ -150,11 +151,11 @@ async def on_message(message):
             if log.author == message.author:
                 counter += 1
         await client.edit_message(tmp, 'You have {} messages.'.format(counter))
-
+        
     elif message.content.startswith('!sleep'):
         await asyncio.sleep(5)
         await client.send_message(message.channel, 'Done sleeping')
-
+    
     elif message.content.startswith('!'):
         response.message=""
         await charrnn((message.content[1:]).lower(), response)
@@ -164,4 +165,5 @@ async def on_message(message):
 # In[ ]:
 
 
-client.run('TOKEN')
+client.run('Mzc4MTYwNDEyMzgzOTAzNzQ3.DZeohg.QQs0BPAjZaEX907Q9dJNN9znr7o')
+
