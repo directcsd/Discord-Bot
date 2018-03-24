@@ -18,7 +18,7 @@ Take in consideration that this is one of my first attempts to code, therefore t
 1. Install jupyter
 1. Install Keras + Tensorflow (Anaconda will make your life easier)
 1. If you corpus come from a WhatsApp group then you can use the parser I prepared, for that you need to download the group chatlog from your mobile and send it to you (I used the email option)
-1. Training of the model took a while with my NVIDIA 1060, I imagine that a GPU system will be a good idea
+1. Training of the model took a while with my NVIDIA 1060, I imagine that a GPU system will be a good idea (A run in AWS c3.x4large instance took 40min aprox per iteration)
 1. Enough permission (not real clear to me what was needed, I was an administrator of the server) in the Discord server to include the bot
 
 ### Installing
